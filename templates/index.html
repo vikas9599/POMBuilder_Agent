@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright POM Refactor Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Prism.js for Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <button id="history-toggle-btn" class="btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 8v4l3 3"></path>
+                        <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                    History
+                </button>
+                <h1>Playwright POM Refactor Agent</h1>
+            </div>
+            <p>Transform your scripts into robust Page Object Models with AI</p>
+        </header>
+
+        <div class="main-layout">
+            <aside class="history-sidebar" id="history-sidebar">
+                <div class="sidebar-header">
+                    <h3>History</h3>
+                    <button id="close-history-btn" class="icon-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div id="history-list" class="history-list">
+                    <!-- History items will be populated here -->
+                </div>
+            </aside>
+
+            <main class="content-area">
+                <div class="upload-section">
+                    <div class="drop-zone" id="drop-zone">
+                        <span class="drop-zone__prompt">Drop file here or click to upload</span>
+                        <input type="file" name="file" class="drop-zone__input" id="file-input" accept=".js,.ts,.py">
+                    </div>
+
+                    <div class="controls">
+                        <div class="input-group">
+                            <label for="language-select">Target Language:</label>
+                            <select id="language-select">
+                                <option value="javascript">JavaScript / TypeScript</option>
+                                <option value="python">Python (pytest-playwright)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="model-select">Provider:</label>
+                            <select id="model-select">
+                                <option value="mock">Mock (Demo)</option>
+                                <option value="gemini">Gemini</option>
+                                <option value="grok">Grok</option>
+                                <option value="claude">Claude</option>
+                                <option value="ollama">Ollama</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="api-key-input">API Key:</label>
+                            <input type="password" id="api-key-input" placeholder="Enter API Key" class="text-input">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="model-name-input">Model Name:</label>
+                            <input type="text" id="model-name-input" placeholder="e.g. gemini-1.5-flash"
+                                class="text-input">
+                        </div>
+
+                        <button id="refactor-btn" class="btn-primary">Refactor Script</button>
+
+                        <details class="advanced-settings">
+                            <summary>Advanced Settings</summary>
+                            <div class="input-group">
+                                <label for="system-prompt-input">System Prompt:</label>
+                                <textarea id="system-prompt-input" rows="10" class="text-input"
+                                    placeholder="Customize the system prompt..."></textarea>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Analyzing and Refactoring...</p>
+                </div>
+
+                <div id="results" class="hidden">
+                    <div class="result-card">
+                        <div class="card-header">
+                            <h3>TestData</h3>
+                            <div class="actions">
+                                <button class="icon-btn" onclick="downloadContent('test-data-content', 'testData.js')"
+                                    title="Download">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                </button>
+                                <button class="icon-btn" onclick="copyToClipboard('test-data-content')" title="Copy">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <pre><code id="test-data-content" class="language-javascript"></code></pre>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="card-header">
+                            <h3>TestPage</h3>
+                            <div class="actions">
+                                <button class="icon-btn" onclick="downloadContent('test-page-content', 'testPage.js')"
+                                    title="Download">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                </button>
+                                <button class="icon-btn" onclick="copyToClipboard('test-page-content')" title="Copy">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <pre><code id="test-page-content" class="language-javascript"></code></pre>
+                    </div>
+
+                    <div class="result-card">
+                        <div class="card-header">
+                            <h3>TestScript</h3>
+                            <div class="actions">
+                                <button class="icon-btn"
+                                    onclick="downloadContent('test-script-content', 'testScript.spec.js')"
+                                    title="Download">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                </button>
+                                <button class="icon-btn" onclick="copyToClipboard('test-script-content')" title="Copy">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <pre><code id="test-script-content" class="language-javascript"></code></pre>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
