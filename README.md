@@ -65,7 +65,7 @@ To use the real AI capabilities, you will need API keys from the respective prov
 
 
 
-## Snapshots
+## Snapshots & Demo
 
 ![POMBuilder_Agent_Homepage](static/images/Homepage.png)
 
@@ -73,7 +73,13 @@ To use the real AI capabilities, you will need API keys from the respective prov
 
 ![POMBuilder_Agent_Fullpage](static/images/fullpage.png)
 
-![POMBuilder_Agent](static/images/POMBuilder_Agent.wmv)
+<!-- Demo video -->
+<video controls width="800">
+  <source src="static/images/POMBuilder_Agent.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+[Download the demo video](static/images/POMBuilder_Agent.mp4)
 
 ## 🤝 Contributing
 
