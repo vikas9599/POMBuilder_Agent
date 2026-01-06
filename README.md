@@ -63,18 +63,17 @@ To use the real AI capabilities, you will need API keys from the respective prov
 *   **Claude**: [Anthropic Console](https://console.anthropic.com/)
 *   **Ollama**: Ensure [Ollama](https://ollama.com/) is running locally (`ollama serve`).
 
-## 📂 Project Structure
 
-*   `app.py`: Main Flask application server.
-*   `llm_service.py`: Handles interactions with the various LLM APIs.
-*   `prompts.py`: Contains the system prompts used to guide the AI.
-*   `templates/index.html`: The frontend user interface.
-*   `static/`: CSS styles and JavaScript logic.
+
+## Snapshots
+
+![POMBuilder_Agent_Homepage](static\images\Homepage.png)
+
+![POMBuilder_Agent_History](static\images\History.png)
+
+![POMBuilder_Agent_Fullpage](static\images\fullpage.png)
+
 
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-Snapshots
-
-![alt text](image.png)
