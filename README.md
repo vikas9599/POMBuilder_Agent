@@ -1,6 +1,6 @@
-# POMify - Playwright POM Refactor Agent
+# POMBuilder_Agent - Playwright POM Refactor Agent
 
-**POMify** is an intelligent agent designed to automatically refactor your Playwright test scripts into the **Page Object Model (POM)** design pattern. By leveraging powerful LLMs (Gemini, Grok, Claude, Ollama), it analyzes your existing scripts and extracts reusable page objects and test data, promoting cleaner, more maintainable test automation code.
+**POMBuilder_Agent** is an intelligent agent designed to automatically refactor your Playwright test scripts into the **Page Object Model (POM)** design pattern. By leveraging powerful LLMs (Gemini, Grok, Claude, Ollama), it analyzes your existing scripts and extracts reusable page objects and test data, promoting cleaner, more maintainable test automation code.
 
 ## 🚀 Features
 
