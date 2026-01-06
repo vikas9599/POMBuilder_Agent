@@ -49,7 +49,7 @@
 3.  **Refactor a Script**:
     *   **Upload**: Drag and drop your `.js` or `.ts` Playwright script.
     *   **Configure**: Select your desired LLM Provider.
-        *   *Optional*: Enter your API Key and a specific Model Name (e.g., `gemini-2.5-pro`).
+        *   *Optional*: Enter your API Key and a specific Model Name (e.g., `gemini-2.5-flash`).
         *   *Note*: If fields are left empty, it may try to use environment variables or default to a Mock mode.
     *   **Run**: Click **Refactor Script**.
     *   **Export**: Copy the code or click the **Download** icon to save the generated files.
@@ -67,12 +67,13 @@ To use the real AI capabilities, you will need API keys from the respective prov
 
 ## Snapshots
 
-![POMBuilder_Agent_Homepage](static\images\Homepage.png)
+![POMBuilder_Agent_Homepage](static/images/Homepage.png)
 
-![POMBuilder_Agent_History](static\images\History.png)
+![POMBuilder_Agent_History](static/images/History.png)
 
-![POMBuilder_Agent_Fullpage](static\images\fullpage.png)
+![POMBuilder_Agent_Fullpage](static/images/fullpage.png)
 
+![POMBuilder_Agent](static/images/POMBuilder_Agent.wmv)
 
 ## 🤝 Contributing
 
