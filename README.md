@@ -74,3 +74,7 @@ To use the real AI capabilities, you will need API keys from the respective prov
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+Snapshots
+
+![alt text](image.png)
