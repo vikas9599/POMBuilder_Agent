@@ -81,6 +81,19 @@ To use the real AI capabilities, you will need API keys from the respective prov
 
 [Download the demo video](static/images/POMBuilder_Agent.mp4)
 
+## 📚 Project Wiki
+
+Extended documentation and guides live in the repository's `wiki/` folder:
+
+- [Home](wiki/Home.md)
+- [Installation](wiki/Installation.md)
+- [Usage](wiki/Usage.md)
+- [Demo](wiki/Demo.md)
+- [API Keys](wiki/API_Keys.md)
+- [Contributing](wiki/Contributing.md)
+- [FAQ](wiki/FAQ.md)
+- [Changelog](wiki/Changelog.md)
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
