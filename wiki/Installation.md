@@ -46,4 +46,4 @@ python app.py
 
 Open your browser to `http://127.0.0.1:5000`.
 
-Thanks
+Open your browser to `http://localhost:5000`.
